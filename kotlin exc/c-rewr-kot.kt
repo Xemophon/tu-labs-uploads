@@ -6,12 +6,7 @@ class Medicine(
     var id: Long, 
     var price: Float, 
     var quant: Int
-) 
-//{ 
-//     fun sell(quantl: Int) { 
-//         this.quant -= quantl 
-//     } 
-// }
+)
 
 fun check_date(meds:Array<Medicine>, date:String):Array<Medicine>{
     var req_scanner = Scanner(date)
@@ -38,6 +33,22 @@ fun check_date(meds:Array<Medicine>, date:String):Array<Medicine>{
     } else{
         return NULL
     }
+}
+
+fun delete_entry(meds:MutableList<Medicine>, mname:String, date:String){
+    var found = 0
+    var d_obj:Medicine
+    for(obj in meds){
+        if(obj.name == mname && obj.date == date){
+            found = 1
+            d_obj = obj
+            break
+        }
+    }
+    if(found==0){
+        println("Not found")
+    }
+    meds.remove(d_obj)
 }
 
 fun main(){

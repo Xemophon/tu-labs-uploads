@@ -19,13 +19,13 @@ class FoodDelivery(
 fun status_info(arr:Array<FoodDelivery>,num:Int){
     var found = 0
     for(obj in arr){
-        if(arr.order_number == num){
+        if(obj.order_number == num){
             println("Found")
             found = 1
             break
         }
     }
-    if(found = 0){
+    if(found == 0){
         println("Not found")
     }
 }
@@ -40,7 +40,7 @@ fun main(){
     for(i in 0..19){
         nums.add(readln().toInt())
     }
-    var sum = nums.maxOrNull() + nums.minOrNull()
+    var sum = (nums.maxOrNull()?:0) + (nums.minOrNull()?:0)
     var odd = 0
     for(num in nums){
         if(num%2!=0){
@@ -53,11 +53,12 @@ fun main(){
             nums2.add(num)
         }
     }
-    var sum2, avg
+    var sum2 = 0
+    var avg = 0
     for(num in nums2){
         sum2+=num
     }
-    avg = sum2/num2.size
-    println(avg+nums2.maxOrNull())
-    num2.add(num2[0]+num2[num2.size-1])
+    avg = sum2/nums2.size
+    println(avg+(nums2.maxOrNull()?:0))
+    nums2.add(nums2[0]+nums2[nums2.size-1])
 }
