@@ -1,0 +1,8 @@
+public enum MODE{
+    BASIC,
+    DIFFERENTIATE,
+    INTEGRATE,
+    SUMMATION,
+    LAPLACE,
+    INVERSE_LAPLACE
+}
