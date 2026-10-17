@@ -1,13 +1,15 @@
 public class CustomLinkedList<T>{
-    private Node<T> head;
-    private int size;
+    private Node<T> head; //Пазим първия възел от директен достъп, за да не изгубим последващите референции
+    private int size; //Пазим размера на свързания списък в частна променлива, за да няма директен достъп
 
-    /*Възел от списъка зададен с данните му и референция към следващия възел
-    като имаме два конструктора съответно за случаите:
-    1) - head при първоначално добавяне + за tail
+    /*Клас Възел, който е важен за работата на класа Свързан Списък - 
+    съответно чрез static не го даваме на всеки обект(не е нужен на инстанцците поотделно).
+    В класа Node задаваме за едносвързан списък променливите - data (елемент) и pointer(референция към следващия възел).
+    Имаме два конструктора съответно за случаите:
+    1) - head и tail
     2) за вътрешните възли.*/
     private static class Node<T>{
-        T data;
+        T data; // T задава типа на свързания списък и на възлите в диамантените скоби.
         Node<T> pointer;
 
         Node(T data){
@@ -21,6 +23,7 @@ public class CustomLinkedList<T>{
         }
     }
 
+    //Инициализиране на празен свързан списък без начален възел и нулев размер.
     public CustomLinkedList() {
         this.head = null;
         this.size = 0;
@@ -32,24 +35,30 @@ public class CustomLinkedList<T>{
 
     //Обхожда и принтира всеки възел.
     public void traverse(){
+        //Временна променлива съхраняваща текущия възел като започваме от главата.
         Node<T> current = this.head;
+        //Цикълът обхожда като преминаването става чрез промяна на текущия възел по съдържащата се в него референция.
         while(current != null){
             System.out.print(current.data+" -> ");
             current = current.pointer;
         }
+        //Край на списъка с null.
         System.out.println("null");
     }
 
-    //
+    //Търсим възел по стойност в списъка
     public void search(T value){
-        if (head == null) { System.out.print("Not found"); return; }
+        if (head == null) { 
+            System.out.print("Empty list."); 
+            return; 
+        } //Проверка за празен списък
         Node<T> current = this.head;
         int index = 0;
         boolean found = false;
         while(current != null){
             if(java.util.Objects.equals(current.data, value)){
                 found = true;
-                System.out.print("At: "+index+" ");    
+                System.out.println("At: "+index+" ");// Принтираме индексите, на които е намерен елемента.    
             }
             current = current.pointer;
             index++;
@@ -59,16 +68,17 @@ public class CustomLinkedList<T>{
         }
     }
 
+    //Търсим каква стойност има възела на дадения индекс
     public void search(int index){
         if (index < 0 || head == null) {
             throw new ArrayIndexOutOfBoundsException("Index out of bounds.");
-        }
+        }//Правим изключение при което или е празен списъка, или индексът е невалиден.
         Node<T> current = this.head;
         for(int i=0;i<index;i++){
             current = current.pointer;
             if (current == null){
                 throw new ArrayIndexOutOfBoundsException("Index out of bounds.");
-            }
+            }//Правим изключение при което индексът е извън рамките на списъка.
         }
         System.out.print(current.data);
     }
@@ -87,6 +97,7 @@ public class CustomLinkedList<T>{
         size++;
     }
 
+    //Сменя първия възел или го създава
     public void addHead(T value){
         if(head == null){
             this.head = new Node<>(value);
@@ -119,6 +130,7 @@ public class CustomLinkedList<T>{
         }
     }
 
+    //Премахва последния възел
     public void removeTail(){
         if(head == null){
             return;
@@ -135,6 +147,7 @@ public class CustomLinkedList<T>{
         }
     }
 
+    //Премахва първия възел.
     public void removeHead(){
         if(head == null){
             return;
@@ -143,6 +156,7 @@ public class CustomLinkedList<T>{
         }
     }
 
+    //Премахва първия възел в списъка, който пасва на условието value.
     public void remove(T value){
         if(this.head == null) { return; }
         if(java.util.Objects.equals(head.data, value)){
@@ -161,6 +175,7 @@ public class CustomLinkedList<T>{
         }
     }
 
+    //Премахва възел на определен индекс.
     public void remove(int index){
         if(this.head == null) { return; }
         if(index < 0) { 

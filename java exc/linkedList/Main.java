@@ -12,7 +12,6 @@ class Main{
         list.removeHead();
         list.search(1.43f);
         list.search(1);
-
         list.traverse();
     }
 }
